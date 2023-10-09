@@ -1,25 +1,35 @@
+# Step 1: Read the entire data file into memory using the readLines()-function.
+url <- "http://www.sao.ru/lv/lvgdb/article/suites_dw_Table1.txt"
+lines <- readLines(url, warn = FALSE)
 
-# Skeleton file 1 for Assignment 1 in BAN400. 
-# -------------------------------------------
-
-# Comments below describes briefly a set of steps that solves Problem 1.
-
-# Read the entire data file into memory using the readLines()-function. Use the
-# URL direcly or read the data from the local file that is in the repository.
-
-# Identify the line number L of the separator line between the column names and
+# Step 2: Identify the line number L of the separator line between the column names and
 # the rest of the data table.
+L <- which(grepl("^-+", lines))
 
-# Save the variable descriptions (i.e. the information in lines 1:(L-2)) in a
+# Step 3: Save the variable descriptions (i.e. the information in lines 1:(L-2)) in a
 # text-file for future reference using the cat()-function
+desc_file <- "variable_descriptions.txt"
+cat(lines[1:(L-2)], file = desc_file, sep = "\n")
 
-# Extract the variable names (i.e. line (L-1)), store the names in a vector.
+# Step 4: Extract the variable names (i.e. line (L-1)), store the names in a vector.
+column_names <- unlist(strsplit(gsub("\\s+", " ", lines[L-1]), " "))
 
-# Read the data. One way to do this is to rewrite the data to a new .csv-file
-# with comma-separators for instance using cat() again, with the variable names
-# from the step above on the first line (see for instance paste() for collapsing
-# that vector to a single string with commas as separators).
+# Step 5 & 6: Rewrite the data to a new .csv-file with comma-separators using cat() 
+# and then read the finished .csv back into R in the normal way.
 
-# Read the finished .csv back into R in the normal way.
+# Create a temporary csv file
+temp_csv <- tempfile(fileext = ".csv")
+
+# Write the column names and the data to the csv
+cat(paste(column_names, collapse = ","), file = temp_csv, sep = "\n")
+data_lines <- lines[(L+1):length(lines)]
+cleaned_data <- gsub("\\s+", ",", data_lines)
+cat(cleaned_data, file = temp_csv, sep = "\n", append = TRUE)
+
+# Read the csv file into a dataframe
+df <- read.csv(temp_csv)
+
+# Display the dataframe
+print(df)
 
 
