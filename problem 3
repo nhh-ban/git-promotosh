@@ -1,0 +1,35 @@
+problem 3
+
+library(ggplot2)
+
+# Plotting histogram for linear diameter
+
+ggplot(df, aes(x=a_26)) + 
+  geom_histogram(binwidth=0.5, fill="skyblue", color="black", alpha=0.7) + 
+  labs(title="Histogram of Linear Diameter", 
+       x="Linear Diameter (kpc)", 
+       y="Count") +
+  theme_minimal()
+
+# Logarithm of the Stellar Mass (log_lk):
+
+ggplot(df, aes(x=log_lk)) + 
+  geom_histogram(binwidth=0.5, fill="lightcoral", color="black", alpha=0.7) + 
+  labs(title="Histogram of Log Stellar Mass", 
+       x="Log Stellar Mass (in solar units)", 
+       y="Count") +
+  theme_minimal()
+# Logarithm of the Indicative Mass (log_m26)
+ggplot(df, aes(x=log_m26)) + 
+  geom_histogram(binwidth=0.5, fill="lightgreen", color="black", alpha=0.7) + 
+  labs(title="Histogram of Log Indicative Mass", 
+       x="Log Indicative Mass (within Holmberg diameter)", 
+       y="Count") +
+  theme_minimal()
+# Logarithm of the Hydrogen Mass (log_mhi):
+ggplot(df, aes(x=log_mhi)) + 
+  geom_histogram(binwidth=0.5, fill="lightblue", color="black", alpha=0.7) + 
+  labs(title="Histogram of Log Hydrogen Mass", 
+       x="Log Hydrogen Mass (in solar units)", 
+       y="Count") +
+  theme_minimal()
