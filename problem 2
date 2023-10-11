@@ -31,5 +31,3 @@ df <- read.csv(temp_csv)
 
 # Display the dataframe
 print(df)
-
-
